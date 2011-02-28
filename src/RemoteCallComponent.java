@@ -21,8 +21,8 @@ public class RemoteCallComponent implements ApplicationComponent {
 	public void initComponent() {
 
 		try {
-			serverSocket = new ServerSocket(8090);
-			log.info("Listening 8090");
+			serverSocket = new ServerSocket(8091);
+			log.info("Listening 8091");
 		} catch (IOException e) {
 			log.error("Can't open socket", e);
 			return;
