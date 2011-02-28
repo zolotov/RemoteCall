@@ -1,1 +1,3 @@
-This file was created by IntelliJ IDEA 10.0.2 for binding GitHub repository
+IntelliJ IDEA plugin for remote call some procedures
+At the moment it can to open file by request to 8091 port something like this: "Hello.java:18"
+
