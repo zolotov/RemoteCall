@@ -1,0 +1,22 @@
+<idea-plugin version="2">
+	<name>Remote call</name>
+	<description>Plugin for remote call some procedures in idea.
+		Now it able to open file by sending request like "HelloClass.java:90" to 8090 port
+	</description>
+	<version>1.0</version>
+	<vendor>FarPost</vendor>
+	<idea-version since-build="8000"/>
+
+	<application-components>
+		<component>
+			<implementation-class>RemoteCallComponent</implementation-class>
+		</component>
+	</application-components>
+
+	<actions>
+	</actions>
+
+	<extensions defaultExtensionNs="com.intellij">
+	</extensions>
+
+</idea-plugin>
