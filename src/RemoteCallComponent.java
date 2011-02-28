@@ -45,6 +45,6 @@ public class RemoteCallComponent implements ApplicationComponent {
 
 	@NotNull
 	public String getComponentName() {
-		return "RemoteOpenComponent";
+		return "RemoteCallComponent";
 	}
 }
