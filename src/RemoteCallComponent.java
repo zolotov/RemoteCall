@@ -24,8 +24,7 @@ public class RemoteCallComponent implements ApplicationComponent {
 			serverSocket = new ServerSocket(8091);
 			log.info("Listening 8091");
 		} catch (IOException e) {
-			log.error("Can't open socket", e);
-			return;
+			throw new RuntimeException("Can't open socket", e);
 		}
 
 		MessageNotifier messageNotifier = new SocketMessageNotifier(serverSocket);
