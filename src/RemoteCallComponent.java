@@ -6,6 +6,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
 public class RemoteCallComponent implements ApplicationComponent {
@@ -21,7 +22,8 @@ public class RemoteCallComponent implements ApplicationComponent {
 	public void initComponent() {
 
 		try {
-			serverSocket = new ServerSocket(8091);
+			serverSocket = new ServerSocket();
+			serverSocket.bind(new InetSocketAddress("localhost", 8091));
 			log.info("Listening 8091");
 		} catch (IOException e) {
 			throw new RuntimeException("Can't open socket", e);
