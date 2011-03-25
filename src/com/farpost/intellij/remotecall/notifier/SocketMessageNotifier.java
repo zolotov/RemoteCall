@@ -64,7 +64,7 @@ public class SocketMessageNotifier implements MessageNotifier {
 				String message = parameters.get("message") != null ? parameters.get("message") : "";
 
 				log.info("Received message " + message);
-				handleMessage(requestString);
+				handleMessage(message);
 			} catch (IOException e) {
 				log.error("Error", e);
 			}
