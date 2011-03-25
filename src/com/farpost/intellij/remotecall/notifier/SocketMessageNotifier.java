@@ -31,7 +31,8 @@ public class SocketMessageNotifier implements MessageNotifier {
 			Socket clientSocket;
 			try {
 				clientSocket = serverSocket.accept();
-				if (!clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1")) {
+				if (!clientSocket.getInetAddress().getHostAddress().equals("127.0.0.1") &&
+					!clientSocket.getInetAddress().getHostAddress().equals("0:0:0:0:0:0:0:1")) {
 					log.warn("Not allowed requests from " + clientSocket.getInetAddress().getHostAddress());
 					continue;
 				}
