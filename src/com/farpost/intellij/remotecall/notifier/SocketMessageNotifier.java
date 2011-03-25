@@ -16,6 +16,7 @@ public class SocketMessageNotifier implements MessageNotifier {
 	private Collection<MessageHandler> messageHandlers = new HashSet<MessageHandler>();
 	private ServerSocket serverSocket;
 	private static final String CRLF = "\r\n";
+	private static final String NL = "\n";
 
 	public SocketMessageNotifier(ServerSocket serverSocket) {
 		this.serverSocket = serverSocket;
@@ -47,9 +48,11 @@ public class SocketMessageNotifier implements MessageNotifier {
 
 				String inputLine, requestString = "";
 
-				while ((inputLine = in.readLine()) != null && !inputLine.equals(CRLF) && !inputLine.equals("")) {
+				while ((inputLine = in.readLine()) != null && !inputLine.equals(CRLF) && !inputLine.equals(NL) && !inputLine.isEmpty()) {
 					requestString += inputLine;
 				}
+				clientSocket.getOutputStream().write(("HTTP/1.1 200 OK" + CRLF + CRLF).getBytes());
+				clientSocket.close();
 
 				StringTokenizer tokenizer = new StringTokenizer(requestString);
 				String method = tokenizer.nextToken();
