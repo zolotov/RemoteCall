@@ -27,7 +27,7 @@ public class OpenFileMessageHandler implements MessageHandler {
 					try {
 						line = Integer.parseInt(fileInfo[1]);
 					} catch (NumberFormatException e) {
-						log.info("Bad line number. Open on the first line");
+						log.info("Bad line number: " + fileInfo[1] + ". Open on the first line");
 					}
 				}
 				for (Project project : projects) {
