@@ -7,8 +7,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.WindowManager;
-import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.search.FilenameIndex;
+import com.intellij.psi.search.GlobalSearchScope;
 
 import java.io.File;
 
@@ -27,11 +28,11 @@ public class OpenFileMessageHandler implements MessageHandler {
 					try {
 						line = Integer.parseInt(fileInfo[1]);
 					} catch (NumberFormatException e) {
-						log.info("Bad line number: " + fileInfo[1] + ". Open on the first line");
+						log.info("Bad line number: " + fileInfo[1] + ". File will be opened on the first line");
 					}
 				}
 				for (Project project : projects) {
-					PsiFile foundFiles[] = JavaPsiFacade.getInstance(project).getShortNamesCache().getFilesByName(fileName);
+					PsiFile foundFiles[] = FilenameIndex.getFilesByName(project, fileName, GlobalSearchScope.allScope(project));
 					if (foundFiles.length >= 1) {
 						VirtualFile directFile = foundFiles[0].getVirtualFile();
 						if (directFile == null) {
