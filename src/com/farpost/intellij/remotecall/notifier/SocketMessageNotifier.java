@@ -50,7 +50,7 @@ public class SocketMessageNotifier implements MessageNotifier {
 				clientSocket.close();
 
 				StringTokenizer tokenizer = new StringTokenizer(requestString);
-				String method = tokenizer.nextToken();
+				String method = tokenizer.hasMoreElements() ? tokenizer.nextToken() : "";
 				if (!method.equals("GET")) {
 					log.warn("Only GET requests allowed");
 					continue;
