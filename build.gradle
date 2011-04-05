@@ -1,0 +1,22 @@
+version=1.1
+
+apply plugin: 'java'
+
+repositories {
+	flatDir(dirs: file("/Applications/IntelliJ IDEA 10.app/lib/"))
+    mavenCentral()
+}
+
+dependencies {
+	compile module (':idea') {
+		dependency(':openapi')
+		dependency(':util')
+		dependency(':annotations')
+	}
+
+	testCompile group: 'org.testng', name: 'testng', version: '5.14+'
+}
+
+test {
+        useTestNG()
+}

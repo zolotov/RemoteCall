@@ -15,7 +15,7 @@
 
 	<application-components>
 		<component>
-			<implementation-class>RemoteCallComponent</implementation-class>
+			<implementation-class>com.farpost.intellij.remotecall.RemoteCallComponent</implementation-class>
 		</component>
 	</application-components>
 

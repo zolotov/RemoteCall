@@ -1,3 +1,5 @@
+package com.farpost.intellij.remotecall;
+
 import com.farpost.intellij.remotecall.handler.OpenFileMessageHandler;
 import com.farpost.intellij.remotecall.notifier.MessageNotifier;
 import com.farpost.intellij.remotecall.notifier.SocketMessageNotifier;
