@@ -17,7 +17,7 @@ You should download archive from [downloads page](https://github.com/Zolotov/Rem
 Usage
 ---------
 
-In my case I use this plugin for navigating by stacktrace which showing in application for watching logs. In the page of this application i insert following js code, that converts filenames (in div with stacktrace) to open-in-ide-link:
+In my case I use this plugin for navigating by stacktrace which showing in application for watching logs. In the page of this application i insert following js code, that converts filenames (in div with stacktrace) to open-in-ide-link: https://gist.github.com/905279
 
 <script src="https://gist.github.com/905279.js?file=open_in_ide.js"></script>
 
