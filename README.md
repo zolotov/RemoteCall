@@ -19,7 +19,7 @@ Usage
 
 In my case I use this plugin for navigating by stacktrace which showing in application for watching logs. In the page of this application i insert following js code, that converts filenames (in div with stacktrace) to open-in-ide-link:
 
-<script src="http://gist.github.com/a4f5df7980018adf25c4.js"></script>
+<script src="https://gist.github.com/905279.js?file=gistfile1.js"></script>
 
 Also, you can open files in IDE from your local applications using sockets, telnet, curl etc.
 
@@ -29,7 +29,6 @@ To build the plugin use IntelliJ IDEA.
 
 You can use gradle for compile and testing. In this case you should create gradle.properties file from example and set path_to_idea property.
 
-  $ echo "path_to_idea=/Applications/IntelliJ IDEA 10.app/" > gradle.properties
-  $ gradle test
-
+    $ echo "path_to_idea=/Applications/IntelliJ IDEA 10.app/" > gradle.properties
+    $ gradle test
 
