@@ -1,14 +1,14 @@
-version=1.1
+version = 1.1
 
 apply plugin: 'java'
 
 repositories {
-	flatDir(dirs: file("/Applications/IntelliJ IDEA 10.app/lib/"))
-    mavenCentral()
+	flatDir(dirs: file(path_to_idea + "/lib/"))
+	mavenCentral()
 }
 
 dependencies {
-	compile module (':idea') {
+	compile module(':idea') {
 		dependency(':openapi')
 		dependency(':util')
 		dependency(':annotations')
@@ -18,5 +18,5 @@ dependencies {
 }
 
 test {
-        useTestNG()
+	useTestNG()
 }

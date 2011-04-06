@@ -1,4 +1,5 @@
 .idea/
+gradle.properties
 RemoteCall.jar
 remote_call.jar
 out/
