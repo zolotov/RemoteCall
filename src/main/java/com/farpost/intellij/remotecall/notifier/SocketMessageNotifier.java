@@ -32,8 +32,12 @@ public class SocketMessageNotifier implements MessageNotifier {
 			try {
 				clientSocket = serverSocket.accept();
 			} catch (IOException e) {
-				log.error("Error while accepting", e);
-				continue;
+				if (serverSocket.isClosed()) {
+					break;
+				} else {
+					log.error("Error while accepting", e);
+					continue;
+				}
 			}
 
 			try {
