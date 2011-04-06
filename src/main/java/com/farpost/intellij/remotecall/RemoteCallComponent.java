@@ -3,6 +3,7 @@ package com.farpost.intellij.remotecall;
 import com.farpost.intellij.remotecall.handler.OpenFileMessageHandler;
 import com.farpost.intellij.remotecall.notifier.MessageNotifier;
 import com.farpost.intellij.remotecall.notifier.SocketMessageNotifier;
+import com.farpost.intellij.remotecall.utils.FileNavigatorImpl;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.diagnostic.Logger;
@@ -40,7 +41,7 @@ public class RemoteCallComponent implements ApplicationComponent {
 		}
 
 		MessageNotifier messageNotifier = new SocketMessageNotifier(serverSocket);
-		messageNotifier.addMessageHandler(new OpenFileMessageHandler());
+		messageNotifier.addMessageHandler(new OpenFileMessageHandler(new FileNavigatorImpl()));
 		listenerThread = new Thread(messageNotifier);
 		listenerThread.start();
 	}
