@@ -19,6 +19,7 @@ import static org.testng.Assert.assertNull;
 @Test
 public class SocketMessageNotifierTest {
 
+	private final int PORT = 62775;
 	private Thread notifierThread;
 	private StubMessageHandler messageHandler = new StubMessageHandler();
 	private ServerSocket socket;
@@ -72,12 +73,12 @@ public class SocketMessageNotifierTest {
 
 	private MessageNotifier createNotifier() throws IOException {
 		socket = new ServerSocket();
-		socket.bind(new InetSocketAddress("localhost", 62775));
+		socket.bind(new InetSocketAddress("localhost", PORT));
 		return new SocketMessageNotifier(socket);
 	}
 
 	private void sendMessage(String message) throws IOException {
-		Socket client = new Socket("localhost", 62775);
+		Socket client = new Socket("localhost", PORT);
 		client.getOutputStream().write(message.getBytes());
 		client.close();
 	}
