@@ -21,7 +21,7 @@ In my case I use this plugin for navigating by stacktrace which showing in appli
 
 <script src="https://gist.github.com/905279.js?file=open_in_ide.js"></script>
 
-Also, you can open files in IDE from your local applications using sockets, telnet, curl etc.
+Also, you can open files in IDE from your local applications using sockets, telnet, curl etc. Or you can simple open url http://localhost:8091?message=FileName.java:80 in browser ;-)
 
 Build
 ---------
