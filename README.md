@@ -19,7 +19,7 @@ Usage
 
 In my case I use this plugin for navigating by stacktrace which showing in application for watching logs. In the page of this application i insert following js code, that converts filenames (in div with stacktrace) to open-in-ide-link:
 
-<script src="https://gist.github.com/905279.js?file=gistfile1.js"></script>
+<script src="https://gist.github.com/905279.js?file=open_in_ide.js"></script>
 
 Also, you can open files in IDE from your local applications using sockets, telnet, curl etc.
 
