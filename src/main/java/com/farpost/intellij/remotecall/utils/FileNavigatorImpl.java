@@ -31,7 +31,8 @@ public class FileNavigatorImpl implements FileNavigator {
 				}
 
 				String variableFileName = fileName;
-				for (int i = 0; i <= variableFileName.split(File.separator).length; i++) {
+				int pathElementsCount = variableFileName.split(File.separator).length;
+				for (int i = 0; i <= pathElementsCount; i++) {
 					for (Project project : foundFilesInAllProjects.keySet()) {
 						for (VirtualFile directFile : foundFilesInAllProjects.get(project)) {
 							if (directFile.getPath().endsWith(variableFileName)) {
@@ -42,7 +43,7 @@ public class FileNavigatorImpl implements FileNavigator {
 						}
 					}
 					String extractedParent[] = variableFileName.split(File.separator, 2);
-					variableFileName = extractedParent.length > 1 ? extractedParent[1] : "";
+					variableFileName = extractedParent.length > 1 ? extractedParent[1] : extractedParent[0];
 				}
 
 			}
