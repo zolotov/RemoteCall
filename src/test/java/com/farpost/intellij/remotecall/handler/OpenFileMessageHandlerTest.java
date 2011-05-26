@@ -36,14 +36,6 @@ public class OpenFileMessageHandlerTest {
 		assertEquals(fileNavigator.getFileName(), "FileName.java");
 		assertEquals(fileNavigator.getLine(), 0);
 	}
-
-	@Test
-	public void handlerShouldExtractFilenameFromPath() {
-		handler.handleMessage("/home/zolotov/FileName.java:80");
-		assertEquals(fileNavigator.getFileName(), "FileName.java");
-		assertEquals(fileNavigator.getLine(), 79);
-	}
-
 }
 
 class StubFileNavigator implements FileNavigator {
