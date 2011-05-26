@@ -7,7 +7,7 @@ Supported procedures
 --------------------------------
 
 At the moment it can open the files on http GET-request to localhost:8091 with "message" parameter looking like "FileName.java:89" or "any/path/FileName.java:89".
-In this case plugin will try to find the most appropriate file on the specified path in opened projects and navigate to it.
+In this case plugin will try to find the most appropriate file basing on the specified path in opened projects and navigate to it.
 
 Send requests permitted only from localhost.
 
