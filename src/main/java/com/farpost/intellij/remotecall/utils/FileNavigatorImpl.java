@@ -7,9 +7,13 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.WindowManager;
-import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileNavigatorImpl implements FileNavigator {
 
@@ -19,28 +23,41 @@ public class FileNavigatorImpl implements FileNavigator {
 	public void findAndNavigate(final String fileName, final int line) {
 		ApplicationManager.getApplication().invokeLater(new Runnable() {
 			public void run() {
+				Map<Project, Collection<VirtualFile>> foundFilesInAllProjects = new HashMap<Project, Collection<VirtualFile>>();
 				Project[] projects = ProjectManager.getInstance().getOpenProjects();
-				for (Project project : projects) {
-					PsiFile foundFiles[] = FilenameIndex.getFilesByName(project, fileName, GlobalSearchScope.allScope(project));
-					if (foundFiles.length >= 1) {
-						VirtualFile directFile = foundFiles[0].getVirtualFile();
-						if (directFile == null) {
-							continue;
-						}
 
-						log.info("Found file " + directFile.getName());
-						final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, directFile, line, 0);
-						if (openFileDescriptor.canNavigate()) {
-							log.info("Trying to navigate to " + directFile.getName() + ":" + line);
-							openFileDescriptor.navigate(true);
-							WindowManager.getInstance().suggestParentWindow(project).toFront();
-						} else {
-							log.info("Cannot navigate");
+				for (Project project : projects) {
+					foundFilesInAllProjects.put(project, FilenameIndex.getVirtualFilesByName(project, new File(fileName).getName(), GlobalSearchScope.allScope(project)));
+				}
+
+				String variableFileName = fileName;
+				for (int i = 0; i <= variableFileName.split(File.separator).length; i++) {
+					for (Project project : foundFilesInAllProjects.keySet()) {
+						for (VirtualFile directFile : foundFilesInAllProjects.get(project)) {
+							if (directFile.getPath().endsWith(variableFileName)) {
+								log.info("Found file " + directFile.getName());
+								navigate(project, directFile, line);
+								return;
+							}
 						}
 					}
+					String extractedParent[] = variableFileName.split(File.separator, 2);
+					variableFileName = extractedParent.length > 1 ? extractedParent[1] : "";
 				}
+
 			}
 		});
+	}
+
+	private void navigate(Project project, VirtualFile file, int line) {
+		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, file, line, 0);
+		if (openFileDescriptor.canNavigate()) {
+			log.info("Trying to navigate to " + file.getPath() + ":" + line);
+			openFileDescriptor.navigate(true);
+			WindowManager.getInstance().suggestParentWindow(project).toFront();
+		} else {
+			log.info("Cannot navigate");
+		}
 	}
 
 }
