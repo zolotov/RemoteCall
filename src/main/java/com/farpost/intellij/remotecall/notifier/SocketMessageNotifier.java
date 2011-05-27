@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URLDecoder;
 import java.util.*;
 
 public class SocketMessageNotifier implements MessageNotifier {
@@ -63,7 +64,7 @@ public class SocketMessageNotifier implements MessageNotifier {
 				log.info("Received request " + requestString);
 				Map<String, String> parameters = getParametersFromUrl(tokenizer.nextToken());
 
-				String message = parameters.get("message") != null ? parameters.get("message") : "";
+				String message = parameters.get("message") != null ? URLDecoder.decode(parameters.get("message"), "UTF-8") : "";
 
 				log.info("Received message " + message);
 				handleMessage(message);
