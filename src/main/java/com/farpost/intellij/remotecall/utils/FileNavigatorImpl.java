@@ -54,11 +54,14 @@ public class FileNavigatorImpl implements FileNavigator {
 
 	private ArrayQueue<String> splitPath(String filePath) {
 		File file = new File(filePath);
-		ArrayQueue<String> pathParts = new ArrayQueue<String>(50);
+		ArrayQueue<String> pathParts = new ArrayQueue<String>(128);
+		pathParts.add(file.getName());
 		String parentName;
 		while ((parentName = file.getParent()) != null) {
 			pathParts.add(parentName);
+			file = file.getParentFile();
 		}
+
 		return pathParts;
 	}
 
