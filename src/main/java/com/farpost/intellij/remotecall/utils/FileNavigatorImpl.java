@@ -9,6 +9,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
+import com.sun.jmx.remote.internal.ArrayQueue;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.util.Collection;
@@ -30,9 +32,10 @@ public class FileNavigatorImpl implements FileNavigator {
 					foundFilesInAllProjects.put(project, FilenameIndex.getVirtualFilesByName(project, new File(fileName).getName(), GlobalSearchScope.allScope(project)));
 				}
 
-				String variableFileName = fileName;
-				int pathElementsCount = variableFileName.split(File.separator).length;
-				for (int i = 0; i <= pathElementsCount; i++) {
+				ArrayQueue<String> pathElements = splitPath(fileName);
+				String variableFileName = StringUtils.join(pathElements, File.separator);
+
+				while (pathElements.size() > 0) {
 					for (Project project : foundFilesInAllProjects.keySet()) {
 						for (VirtualFile directFile : foundFilesInAllProjects.get(project)) {
 							if (directFile.getPath().endsWith(variableFileName)) {
@@ -42,12 +45,21 @@ public class FileNavigatorImpl implements FileNavigator {
 							}
 						}
 					}
-					String extractedParent[] = variableFileName.split(File.separator, 2);
-					variableFileName = extractedParent.length > 1 ? extractedParent[1] : extractedParent[0];
+					pathElements.remove(0);
+					variableFileName = StringUtils.join(pathElements, File.separator);
 				}
-
 			}
 		});
+	}
+
+	private ArrayQueue<String> splitPath(String filePath) {
+		File file = new File(filePath);
+		ArrayQueue<String> pathParts = new ArrayQueue<String>(50);
+		String parentName;
+		while ((parentName = file.getParent()) != null) {
+			pathParts.add(parentName);
+		}
+		return pathParts;
 	}
 
 	private void navigate(Project project, VirtualFile file, int line) {
