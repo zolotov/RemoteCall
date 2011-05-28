@@ -3,6 +3,7 @@ package com.farpost.intellij.remotecall.handler;
 import com.farpost.intellij.remotecall.utils.FileNavigator;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import sun.net.www.http.HttpClient;
 
 import static org.testng.Assert.assertEquals;
 
