@@ -30,7 +30,7 @@ public class FileNavigatorImpl implements FileNavigator {
 				}
 
 				Deque<String> pathElements = splitPath(fileName);
-				String variableFileName = StringUtils.join(pathElements, File.separator);
+				String variableFileName = StringUtils.join(pathElements, "/");
 
 				while (pathElements.size() > 0) {
 					for (Project project : foundFilesInAllProjects.keySet()) {
@@ -43,7 +43,7 @@ public class FileNavigatorImpl implements FileNavigator {
 						}
 					}
 					pathElements.pop();
-					variableFileName = StringUtils.join(pathElements, File.separator);
+					variableFileName = StringUtils.join(pathElements, "/");
 				}
 			}
 		});
@@ -53,7 +53,7 @@ public class FileNavigatorImpl implements FileNavigator {
 		File file = new File(filePath);
 		Deque<String> pathParts = new ArrayDeque<String>();
 		pathParts.push(file.getName());
-		while ((file = file.getParentFile()) != null) {
+		while ((file = file.getParentFile()) != null && !file.getName().isEmpty()) {
 			pathParts.push(file.getName());
 		}
 
