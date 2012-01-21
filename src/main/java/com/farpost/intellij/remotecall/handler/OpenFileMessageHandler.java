@@ -3,8 +3,6 @@ package com.farpost.intellij.remotecall.handler;
 import com.farpost.intellij.remotecall.utils.FileNavigator;
 import com.intellij.openapi.diagnostic.Logger;
 
-import java.io.File;
-
 public class OpenFileMessageHandler implements MessageHandler {
 
 	private final Logger log = Logger.getInstance(getClass().getName());
@@ -16,7 +14,7 @@ public class OpenFileMessageHandler implements MessageHandler {
 
 	public void handleMessage(String message) {
 		String[] fileInfo = message.split(":", 2);
-		String fileName = normalizeFileName(fileInfo[0]);
+		String fileName = fileInfo[0];
 		int line = 0;
 		if (fileInfo.length > 1) {
 			try {
@@ -28,14 +26,5 @@ public class OpenFileMessageHandler implements MessageHandler {
 		if (line > 0) line--;
 
 		fileNavigator.findAndNavigate(fileName, line);
-	}
-
-	private String normalizeFileName(String fileName) {
-		if (fileName.contains(File.separator)) {
-			File file = new File(fileName);
-			fileName = file.getName();
-		}
-
-		return fileName;
 	}
 }

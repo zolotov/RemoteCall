@@ -6,7 +6,9 @@ IntelliJ IDEA plugin for remote call some procedures
 Supported procedures
 --------------------------------
 
-At the moment it can open the files on http GET-request to localhost:8091 with "message" parameter looking like "FileName.java:89".
+At the moment it can open the files on http GET-request to localhost:8091 with "message" parameter looking like "FileName.java:89" or "any/path/FileName.java:89".
+In this case plugin will try to find the most appropriate file basing on the specified path in opened projects and navigate to it.
+
 Send requests permitted only from localhost.
 
 Install
@@ -21,7 +23,7 @@ In my case I use this plugin for navigating by stacktrace which showing in appli
 
 <script src="https://gist.github.com/905279.js?file=open_in_ide.js"></script>
 
-Also, you can open files in IDE from your local applications using sockets, telnet, curl etc.
+Also, you can open files in IDE from your local applications using sockets, telnet, curl etc. Or you can simple open url http://localhost:8091?message=FileName.java:80 in browser ;-)
 
 Build
 ---------
