@@ -14,7 +14,9 @@ Send requests permitted only from localhost.
 Install
 ---------
 
-You should download archive from [downloads page](https://github.com/Zolotov/RemoteCall/archives/master) and extract it to IntelliJ plugins directory
+You should install plugin using IntelliJ IDEA plugins manager.
+
+Also you can download archive from [downloads page](https://github.com/zolotov/RemoteCall/archives/master) and extract it to IntelliJ plugins directory
 
 Usage
 ---------
