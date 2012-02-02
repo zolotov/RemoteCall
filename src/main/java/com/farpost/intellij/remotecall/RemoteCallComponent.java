@@ -18,7 +18,7 @@ public class RemoteCallComponent implements ApplicationComponent {
 
 	private ServerSocket serverSocket;
 
-	final Logger log = Logger.getInstance(getClass().getName());
+	private static final Logger log = Logger.getInstance(RemoteCallComponent.class);
 	private Thread listenerThread;
 
 	public RemoteCallComponent() {
@@ -34,7 +34,7 @@ public class RemoteCallComponent implements ApplicationComponent {
 			ApplicationManager.getApplication().invokeLater(new Runnable() {
 				public void run() {
 					Messages.showMessageDialog("Can't bind with 8091 port. RemoteCall plugin won't work",
-						"RemoteCall plugin error", Messages.getErrorIcon());
+						"RemoteCall Plugin Error", Messages.getErrorIcon());
 				}
 			});
 			return;
@@ -48,7 +48,9 @@ public class RemoteCallComponent implements ApplicationComponent {
 
 	public void disposeComponent() {
 		try {
-			listenerThread.interrupt();
+			if (listenerThread != null) {
+				listenerThread.interrupt();
+			}
 			serverSocket.close();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
