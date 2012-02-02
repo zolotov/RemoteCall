@@ -12,6 +12,7 @@ dependencies {
 		dependency(':openapi')
 		dependency(':util')
 		dependency(':annotations')
+		dependency(':guava-r09')
 	}
 
 	testCompile group: 'org.testng', name: 'testng', version: '5.14+'

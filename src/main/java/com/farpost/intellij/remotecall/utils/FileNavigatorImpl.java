@@ -1,5 +1,6 @@
 package com.farpost.intellij.remotecall.utils;
 
+import com.google.common.base.Joiner;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
@@ -9,14 +10,14 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.WindowManager;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.util.*;
 
 public class FileNavigatorImpl implements FileNavigator {
 
-	private final Logger log = Logger.getInstance(getClass().getName());
+	private static final Logger log = Logger.getInstance(FileNavigatorImpl.class);
+	private static final Joiner pathJoiner = Joiner.on("/");
 
 	@Override
 	public void findAndNavigate(final String fileName, final int line) {
@@ -30,7 +31,7 @@ public class FileNavigatorImpl implements FileNavigator {
 				}
 
 				Deque<String> pathElements = splitPath(fileName);
-				String variableFileName = StringUtils.join(pathElements, "/");
+				String variableFileName = pathJoiner.join(pathElements);
 
 				while (pathElements.size() > 0) {
 					for (Project project : foundFilesInAllProjects.keySet()) {
@@ -43,7 +44,7 @@ public class FileNavigatorImpl implements FileNavigator {
 						}
 					}
 					pathElements.pop();
-					variableFileName = StringUtils.join(pathElements, "/");
+					variableFileName = pathJoiner.join(pathElements);
 				}
 			}
 		});
