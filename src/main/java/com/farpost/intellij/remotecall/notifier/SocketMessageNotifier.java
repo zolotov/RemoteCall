@@ -8,12 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URLDecoder;
 import java.util.*;
+
+import static java.net.URLDecoder.decode;
 
 public class SocketMessageNotifier implements MessageNotifier {
 
-	private final Logger log = Logger.getInstance(getClass().getName());
+	private static final Logger log = Logger.getInstance(SocketMessageNotifier.class);
 	private Collection<MessageHandler> messageHandlers = new HashSet<MessageHandler>();
 	private ServerSocket serverSocket;
 	private static final String CRLF = "\r\n";
@@ -64,7 +65,7 @@ public class SocketMessageNotifier implements MessageNotifier {
 				log.info("Received request " + requestString);
 				Map<String, String> parameters = getParametersFromUrl(tokenizer.nextToken());
 
-				String message = parameters.get("message") != null ? URLDecoder.decode(parameters.get("message"), "UTF-8") : "";
+				String message = parameters.get("message") != null ? decode(parameters.get("message").trim(), "UTF-8") : "";
 
 				log.info("Received message " + message);
 				handleMessage(message);
