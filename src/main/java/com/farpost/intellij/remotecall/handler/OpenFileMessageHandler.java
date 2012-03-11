@@ -12,7 +12,7 @@ import static java.util.regex.Pattern.compile;
 public class OpenFileMessageHandler implements MessageHandler {
 
 	private static final Logger log = Logger.getInstance(OpenFileMessageHandler.class);
-	private static final Pattern LINE_PATTERN = compile("[:#](\\d+)$");
+	private static final Pattern COLUMN_PATTERN = compile("[:#](\\d+)[:#]?(\\d*)$");
 	private FileNavigator fileNavigator;
 
 
@@ -21,17 +21,21 @@ public class OpenFileMessageHandler implements MessageHandler {
 	}
 
 	public void handleMessage(String message) {
-		Matcher matcher = LINE_PATTERN.matcher(message);
+		Matcher matcher = COLUMN_PATTERN.matcher(message);
 		int line = 0;
+		int column = 0;
 
 		if (matcher.find()) {
 			try {
 				line = parseInt(matcher.group(1)) - 1;
+				if (!matcher.group(2).isEmpty()) {
+					column = parseInt(matcher.group(2)) - 1;
+				}
 			} catch (NumberFormatException e) {
-				log.error("Impossible situation, but who knows... RemoteCall extracting line number error", e);
+				log.error("Impossible situation, but who knows... RemoteCall extracting line/column number error", e);
 			}
 		}
 
-		fileNavigator.findAndNavigate(matcher.replaceAll(""), line);
+		fileNavigator.findAndNavigate(matcher.replaceAll(""), line, column);
 	}
 }

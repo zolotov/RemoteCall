@@ -20,7 +20,7 @@ public class FileNavigatorImpl implements FileNavigator {
 	private static final Joiner pathJoiner = Joiner.on("/");
 
 	@Override
-	public void findAndNavigate(final String fileName, final int line) {
+	public void findAndNavigate(final String fileName, final int line, final int column) {
 		ApplicationManager.getApplication().invokeLater(new Runnable() {
 			public void run() {
 				Map<Project, Collection<VirtualFile>> foundFilesInAllProjects = new HashMap<Project, Collection<VirtualFile>>();
@@ -38,7 +38,7 @@ public class FileNavigatorImpl implements FileNavigator {
 						for (VirtualFile directFile : foundFilesInAllProjects.get(project)) {
 							if (directFile.getPath().endsWith(variableFileName)) {
 								log.info("Found file " + directFile.getName());
-								navigate(project, directFile, line);
+								navigate(project, directFile, line, column);
 								return;
 							}
 						}
@@ -61,8 +61,8 @@ public class FileNavigatorImpl implements FileNavigator {
 		return pathParts;
 	}
 
-	private void navigate(Project project, VirtualFile file, int line) {
-		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, file, line, 0);
+	private void navigate(Project project, VirtualFile file, int line, int column) {
+		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, file, line, column);
 		if (openFileDescriptor.canNavigate()) {
 			log.info("Trying to navigate to " + file.getPath() + ":" + line);
 			openFileDescriptor.navigate(true);
