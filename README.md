@@ -11,7 +11,7 @@ In this case plugin will try to find the most appropriate file basing on the spe
 
 Send requests permitted only from localhost.
 
-Port number could be changed via vm option 'idea.remote.call.port' (see [http://www.jetbrains.com/idea/webhelp/tuning-intellij-idea.html] for details).
+Port number could be changed via IDEA property 'idea.remote.call.port' (see [http://www.jetbrains.com/idea/webhelp/file-idea-properties.html] for details).
 
 Install
 ---------

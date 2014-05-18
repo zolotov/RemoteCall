@@ -10,7 +10,7 @@
 
 		Send requests permitted only from localhost.
     
-    Port number could be changed via vm options 'idea.remote.call.port' (see http://www.jetbrains.com/idea/webhelp/tuning-intellij-idea.html).
+    Port number could be changed via IDEA property 'idea.remote.call.port' (see http://www.jetbrains.com/idea/webhelp/file-idea-properties.html).
 	</description>
 	<version>1.5</version>
 	<vendor email="zolotov@farpost.com" url="http://farpost.com">FarPost</vendor>
