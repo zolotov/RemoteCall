@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="1.1" type="JAVA_MODULE" version="4">
+<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="1.1" type="PLUGIN_MODULE" version="4">
+  <component name="DevKit.ModuleBuildProperties" url="file://$MODULE_DIR$/META-INF/plugin.xml" />
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
@@ -15,13 +16,13 @@
     <orderEntry type="library" exported="" name="Gradle: idea" level="project" />
     <orderEntry type="library" exported="" name="Gradle: util" level="project" />
     <orderEntry type="library" exported="" name="Gradle: openapi" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: guava-14.0.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: annotations" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: testng-5.14.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit-3.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: bsh-2.0b4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: jcommander-1.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: snakeyaml-1.6" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: guava-14.0.1" level="project" />
   </component>
 </module>
 
