@@ -1,8 +1,4 @@
-.idea/
 gradle.properties
-RemoteCall.jar
-remote_call.jar
+*.jar
 out/
-*.iml
 .gradle/
-build/
