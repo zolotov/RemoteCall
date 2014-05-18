@@ -2,3 +2,4 @@ gradle.properties
 *.jar
 out/
 .gradle/
+.idea/
