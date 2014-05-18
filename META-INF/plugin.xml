@@ -9,12 +9,13 @@
 		navigate to it.
 
 		Send requests permitted only from localhost.
+    
+    Port number could be changed via vm options 'idea.remote.call.port' (see http://www.jetbrains.com/idea/webhelp/tuning-intellij-idea.html).
 	</description>
-	<version>1.4</version>
+	<version>1.5</version>
 	<vendor email="zolotov@farpost.com" url="http://farpost.com">FarPost</vendor>
 	<idea-version since-build="129.1"/>
 
-	  
 	<depends>com.intellij.modules.platform</depends>
 
 	<application-components>
@@ -22,11 +23,5 @@
 			<implementation-class>com.farpost.intellij.remotecall.RemoteCallComponent</implementation-class>
 		</component>
 	</application-components>
-
-	<actions>
-	</actions>
-
-	<extensions defaultExtensionNs="com.intellij">
-	</extensions>
 
 </idea-plugin>

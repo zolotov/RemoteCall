@@ -8,6 +8,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.util.SystemProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -15,25 +16,21 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 
 public class RemoteCallComponent implements ApplicationComponent {
-
+  private static final Logger log = Logger.getInstance(RemoteCallComponent.class);
+  
 	private ServerSocket serverSocket;
-
-	private static final Logger log = Logger.getInstance(RemoteCallComponent.class);
 	private Thread listenerThread;
 
-	public RemoteCallComponent() {
-	}
-
-	public void initComponent() {
-
+  public void initComponent() {
+    final int port = SystemProperties.getIntProperty("idea.remote.call.port", 8091);
 		try {
 			serverSocket = new ServerSocket();
-			serverSocket.bind(new InetSocketAddress("localhost", 8091));
-			log.info("Listening 8091");
-		} catch (IOException e) {
+      serverSocket.bind(new InetSocketAddress("localhost", port));
+			log.info("Listening " + port);
+    } catch (IOException e) {
 			ApplicationManager.getApplication().invokeLater(new Runnable() {
 				public void run() {
-					Messages.showMessageDialog("Can't bind with 8091 port. RemoteCall plugin won't work",
+					Messages.showMessageDialog("Can't bind with " + port + " port. RemoteCall plugin won't work",
 						"RemoteCall Plugin Error", Messages.getErrorIcon());
 				}
 			});
