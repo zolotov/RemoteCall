@@ -13,7 +13,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: guava-14.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: testng-5.14.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit-3.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: bsh-2.0b4" level="project" />

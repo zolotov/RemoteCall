@@ -12,7 +12,7 @@ dependencies {
 		dependency(':openapi')
 		dependency(':util')
 		dependency(':annotations')
-		dependency('com.google.guava:guava:14.0.1')
+		dependency(':guava:14+')
 	}
 
 	testCompile group: 'org.testng', name: 'testng', version: '5.14+'
