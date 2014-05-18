@@ -13,7 +13,7 @@ public class OpenFileMessageHandler implements MessageHandler {
 
 	private static final Logger log = Logger.getInstance(OpenFileMessageHandler.class);
 	private static final Pattern COLUMN_PATTERN = compile("[:#](\\d+)[:#]?(\\d*)$");
-	private FileNavigator fileNavigator;
+	private final FileNavigator fileNavigator;
 
 
 	public OpenFileMessageHandler(FileNavigator fileNavigator) {

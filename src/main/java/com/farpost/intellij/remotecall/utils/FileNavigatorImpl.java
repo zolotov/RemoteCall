@@ -11,6 +11,7 @@ import com.intellij.openapi.wm.WindowManager;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 
+import java.awt.*;
 import java.io.File;
 import java.util.*;
 
@@ -50,7 +51,7 @@ public class FileNavigatorImpl implements FileNavigator {
 		});
 	}
 
-	private Deque<String> splitPath(String filePath) {
+	private static Deque<String> splitPath(String filePath) {
 		File file = new File(filePath);
 		Deque<String> pathParts = new ArrayDeque<String>();
 		pathParts.push(file.getName());
@@ -61,12 +62,15 @@ public class FileNavigatorImpl implements FileNavigator {
 		return pathParts;
 	}
 
-	private void navigate(Project project, VirtualFile file, int line, int column) {
+	private static void navigate(Project project, VirtualFile file, int line, int column) {
 		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, file, line, column);
 		if (openFileDescriptor.canNavigate()) {
 			log.info("Trying to navigate to " + file.getPath() + ":" + line);
 			openFileDescriptor.navigate(true);
-			WindowManager.getInstance().suggestParentWindow(project).toFront();
+      Window parentWindow = WindowManager.getInstance().suggestParentWindow(project);
+      if (parentWindow != null) {
+        parentWindow.toFront();
+      }
 		} else {
 			log.info("Cannot navigate");
 		}

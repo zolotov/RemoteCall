@@ -19,9 +19,9 @@ import static org.testng.Assert.assertNull;
 @Test
 public class SocketMessageNotifierTest {
 
-	private final int PORT = 62775;
+	private static final int PORT = 62775;
 	private Thread notifierThread;
-	private StubMessageHandler messageHandler = new StubMessageHandler();
+	private final StubMessageHandler messageHandler = new StubMessageHandler();
 	private ServerSocket socket;
 
 	@BeforeMethod
@@ -77,11 +77,15 @@ public class SocketMessageNotifierTest {
 		return new SocketMessageNotifier(socket);
 	}
 
-	private void sendMessage(String message) throws IOException {
+	private static void sendMessage(String message) throws IOException {
 		Socket client = new Socket("localhost", PORT);
-		client.getOutputStream().write(message.getBytes());
-		client.close();
-	}
+    try {
+      client.getOutputStream().write(message.getBytes());
+    }
+    finally {
+      client.close();
+    }
+  }
 
 	private void disposeNotifier() throws IOException {
 		socket.close();
@@ -90,7 +94,7 @@ public class SocketMessageNotifierTest {
 
 class StubMessageHandler implements MessageHandler {
 
-	private BlockingQueue<String> messages = new LinkedBlockingQueue<String>();
+	private final BlockingQueue<String> messages = new LinkedBlockingQueue<String>();
 
 	@Override
 	public void handleMessage(String message) {
