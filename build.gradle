@@ -1,4 +1,4 @@
-version = 1.1
+version = 1.6
 
 apply plugin: 'java'
 
@@ -12,10 +12,10 @@ dependencies {
 		dependency(':openapi')
 		dependency(':util')
 		dependency(':annotations')
-		dependency(':guava:14+')
 	}
 
 	testCompile group: 'org.testng', name: 'testng', version: '5.14+'
+    compile 'com.google.guava:guava:14+'
 }
 
 test {
