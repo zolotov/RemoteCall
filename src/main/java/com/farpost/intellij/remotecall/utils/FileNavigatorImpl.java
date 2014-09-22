@@ -17,63 +17,65 @@ import java.util.*;
 
 public class FileNavigatorImpl implements FileNavigator {
 
-	private static final Logger log = Logger.getInstance(FileNavigatorImpl.class);
-	private static final Joiner pathJoiner = Joiner.on("/");
+  private static final Logger log = Logger.getInstance(FileNavigatorImpl.class);
+  private static final Joiner pathJoiner = Joiner.on("/");
 
-	@Override
-	public void findAndNavigate(final String fileName, final int line, final int column) {
-		ApplicationManager.getApplication().invokeLater(new Runnable() {
-			public void run() {
-				Map<Project, Collection<VirtualFile>> foundFilesInAllProjects = new HashMap<Project, Collection<VirtualFile>>();
-				Project[] projects = ProjectManager.getInstance().getOpenProjects();
+  @Override
+  public void findAndNavigate(final String fileName, final int line, final int column) {
+    ApplicationManager.getApplication().invokeLater(new Runnable() {
+      public void run() {
+        Map<Project, Collection<VirtualFile>> foundFilesInAllProjects = new HashMap<Project, Collection<VirtualFile>>();
+        Project[] projects = ProjectManager.getInstance().getOpenProjects();
 
-				for (Project project : projects) {
-					foundFilesInAllProjects.put(project, FilenameIndex.getVirtualFilesByName(project, new File(fileName).getName(), GlobalSearchScope.allScope(project)));
-				}
+        for (Project project : projects) {
+          foundFilesInAllProjects
+            .put(project, FilenameIndex.getVirtualFilesByName(project, new File(fileName).getName(), GlobalSearchScope.allScope(project)));
+        }
 
-				Deque<String> pathElements = splitPath(fileName);
-				String variableFileName = pathJoiner.join(pathElements);
+        Deque<String> pathElements = splitPath(fileName);
+        String variableFileName = pathJoiner.join(pathElements);
 
-				while (pathElements.size() > 0) {
-					for (Project project : foundFilesInAllProjects.keySet()) {
-						for (VirtualFile directFile : foundFilesInAllProjects.get(project)) {
-							if (directFile.getPath().endsWith(variableFileName)) {
-								log.info("Found file " + directFile.getName());
-								navigate(project, directFile, line, column);
-								return;
-							}
-						}
-					}
-					pathElements.pop();
-					variableFileName = pathJoiner.join(pathElements);
-				}
-			}
-		});
-	}
+        while (pathElements.size() > 0) {
+          for (Project project : foundFilesInAllProjects.keySet()) {
+            for (VirtualFile directFile : foundFilesInAllProjects.get(project)) {
+              if (directFile.getPath().endsWith(variableFileName)) {
+                log.info("Found file " + directFile.getName());
+                navigate(project, directFile, line, column);
+                return;
+              }
+            }
+          }
+          pathElements.pop();
+          variableFileName = pathJoiner.join(pathElements);
+        }
+      }
+    });
+  }
 
-	private static Deque<String> splitPath(String filePath) {
-		File file = new File(filePath);
-		Deque<String> pathParts = new ArrayDeque<String>();
-		pathParts.push(file.getName());
-		while ((file = file.getParentFile()) != null && !file.getName().isEmpty()) {
-			pathParts.push(file.getName());
-		}
+  private static Deque<String> splitPath(String filePath) {
+    File file = new File(filePath);
+    Deque<String> pathParts = new ArrayDeque<String>();
+    pathParts.push(file.getName());
+    while ((file = file.getParentFile()) != null && !file.getName().isEmpty()) {
+      pathParts.push(file.getName());
+    }
 
-		return pathParts;
-	}
+    return pathParts;
+  }
 
-	private static void navigate(Project project, VirtualFile file, int line, int column) {
-		final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, file, line, column);
-		if (openFileDescriptor.canNavigate()) {
-			log.info("Trying to navigate to " + file.getPath() + ":" + line);
-			openFileDescriptor.navigate(true);
+  private static void navigate(Project project, VirtualFile file, int line, int column) {
+    final OpenFileDescriptor openFileDescriptor = new OpenFileDescriptor(project, file, line, column);
+    if (openFileDescriptor.canNavigate()) {
+      log.info("Trying to navigate to " + file.getPath() + ":" + line);
+      openFileDescriptor.navigate(true);
       Window parentWindow = WindowManager.getInstance().suggestParentWindow(project);
       if (parentWindow != null) {
         parentWindow.toFront();
       }
-		} else {
-			log.info("Cannot navigate");
-		}
-	}
+    }
+    else {
+      log.info("Cannot navigate");
+    }
+  }
 
 }
