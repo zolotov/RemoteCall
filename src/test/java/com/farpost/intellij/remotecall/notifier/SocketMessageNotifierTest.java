@@ -1,9 +1,9 @@
 package com.farpost.intellij.remotecall.notifier;
 
 import com.farpost.intellij.remotecall.handler.MessageHandler;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,10 +13,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-@Test
 public class SocketMessageNotifierTest {
 
 	private static final int PORT = 62775;
@@ -24,8 +23,8 @@ public class SocketMessageNotifierTest {
 	private final StubMessageHandler messageHandler = new StubMessageHandler();
 	private ServerSocket socket;
 
-	@BeforeMethod
-	public void setUp() throws IOException {
+    @Before
+    public void setUp() throws IOException {
 		MessageNotifier notifier = createNotifier();
 		notifier.addMessageHandler(messageHandler);
 
@@ -33,8 +32,8 @@ public class SocketMessageNotifierTest {
 		notifierThread.start();
 	}
 
-	@AfterMethod
-	public void tearDown() throws IOException {
+    @After
+    public void tearDown() throws IOException {
 		messageHandler.clear();
 		notifierThread.interrupt();
 		disposeNotifier();
@@ -43,32 +42,32 @@ public class SocketMessageNotifierTest {
 	@Test
 	public void notifierShouldCallHandlerOnMessageReceived() throws IOException {
 		sendMessage("GET /?message=HelloFile.java");
-		assertEquals(messageHandler.getLastMessage(), "HelloFile.java");
-	}
+        assertEquals("HelloFile.java", messageHandler.getLastMessage());
+    }
 
 	@Test
 	public void notifierShouldSkipEmptyMessages() throws IOException {
 		sendMessage("");
-		assertNull(messageHandler.getLastMessage(),
-			"Received " + messageHandler.getLastMessage() + ". Null expected");
-		messageHandler.clear();
+        assertNull("Received " + messageHandler.getLastMessage() + ". Null expected",
+                messageHandler.getLastMessage());
+        messageHandler.clear();
 	}
 
 	@Test
 	public void notifierShouldReceiveOnlyGetRequests() throws IOException {
 		sendMessage("GET /?message=foo");
-		assertEquals(messageHandler.getLastMessage(), "foo");
-		messageHandler.clear();
+        assertEquals("foo", messageHandler.getLastMessage());
+        messageHandler.clear();
 
 		sendMessage("POST /\r\n\r\nmessage=bar");
-		assertNull(messageHandler.getLastMessage(),
-			"Received " + messageHandler.getLastMessage() + ". Null expected");
-		messageHandler.clear();
+        assertNull("Received " + messageHandler.getLastMessage() + ". Null expected",
+                messageHandler.getLastMessage());
+        messageHandler.clear();
 
 		sendMessage("DELETE /?message=bar");
-		assertNull(messageHandler.getLastMessage(),
-			"Received " + messageHandler.getLastMessage() + ". Null expected");
-		messageHandler.clear();
+        assertNull("Received " + messageHandler.getLastMessage() + ". Null expected",
+                messageHandler.getLastMessage());
+        messageHandler.clear();
 	}
 
 	private MessageNotifier createNotifier() throws IOException {

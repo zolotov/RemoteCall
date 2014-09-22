@@ -1,6 +1,3 @@
-gradle.properties
 *.jar
 out/
-.gradle/
-.idea/
-build/
+.idea/workspace.xml
