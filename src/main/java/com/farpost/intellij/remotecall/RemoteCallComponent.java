@@ -23,9 +23,16 @@ public class RemoteCallComponent implements ApplicationComponent {
 
   public void initComponent() {
     final int port = SystemProperties.getIntProperty("idea.remote.call.port", 8091);
+    final boolean remoteControl = SystemProperties.getBooleanProperty("idea.remote.call.remoteControl", false);
+
     try {
       serverSocket = new ServerSocket();
-      serverSocket.bind(new InetSocketAddress("localhost", port));
+      String host = "localhost";
+      if(remoteControl){
+          host = "0.0.0.0";
+      }
+
+      serverSocket.bind(new InetSocketAddress(host, port));
       log.info("Listening " + port);
     }
     catch (IOException e) {
