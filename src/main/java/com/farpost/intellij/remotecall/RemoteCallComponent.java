@@ -27,12 +27,7 @@ public class RemoteCallComponent implements ApplicationComponent {
 
     try {
       serverSocket = new ServerSocket();
-      String host = "localhost";
-      if(remoteControl){
-          host = "0.0.0.0";
-      }
-
-      serverSocket.bind(new InetSocketAddress(host, port));
+      serverSocket.bind(new InetSocketAddress(remoteControl ? "0.0.0.0" : "localhost", port));
       log.info("Listening " + port);
     }
     catch (IOException e) {
