@@ -8,9 +8,9 @@
     In this case plugin will try to find the most appropriate file basing on the specified path in opened projects and
     navigate to it.
 
-    Send requests permitted only from localhost.
+    By default sending requests is permitted from localhost only. You can change it in Settings | Remote Call.
 
-    Port number could be changed via IDEA property 'idea.remote.call.port' (see http://www.jetbrains.com/idea/webhelp/file-idea-properties.html).
+    Number of listening port also can be configured in Settings.
   </description>
   <version>1.7</version>
   <vendor email="zolotov@farpost.com" url="http://farpost.com">FarPost</vendor>

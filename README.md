@@ -9,9 +9,9 @@ Supported procedures
 At the moment it can open files on http GET-request to localhost:8091 with "message" parameter looking like "FileName.java:89" or "any/path/FileName.java:89".
 In this case plugin will try to find the most appropriate file basing on the specified path in opened projects and navigate to it. Also you can specify target column by following message: "FileName.java:89:21".
 
-Send requests permitted only from localhost.
-
-Port number could be changed via IDEA property 'idea.remote.call.port' (see [http://www.jetbrains.com/idea/webhelp/file-idea-properties.html] for details).
+By default sending requests is permitted from localhost only. You can change it in Settings | Remote Call.
+    
+Number of listening port also can be configured in Settings.
 
 Install
 ---------
