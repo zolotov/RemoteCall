@@ -24,4 +24,8 @@
     </component>
   </application-components>
 
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceInterface="com.farpost.intellij.remotecall.settings.RemoteCallSettings"
+                        serviceImplementation="com.farpost.intellij.remotecall.settings.RemoteCallSettings"/>
+  </extensions>
 </idea-plugin>
