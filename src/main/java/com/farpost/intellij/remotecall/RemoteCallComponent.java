@@ -32,7 +32,7 @@ public class RemoteCallComponent implements ApplicationComponent {
 
     try {
       serverSocket = new ServerSocket();
-      serverSocket.bind(new InetSocketAddress(!allowRequestsFromLocalhostOnly ? "localhost" : "0.0.0.0", port));
+      serverSocket.bind(new InetSocketAddress(allowRequestsFromLocalhostOnly ? "localhost" : "0.0.0.0", port));
       log.info("Listening " + port);
     }
     catch (IOException e) {
