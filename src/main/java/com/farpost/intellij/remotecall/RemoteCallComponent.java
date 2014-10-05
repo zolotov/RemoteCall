@@ -3,12 +3,12 @@ package com.farpost.intellij.remotecall;
 import com.farpost.intellij.remotecall.handler.OpenFileMessageHandler;
 import com.farpost.intellij.remotecall.notifier.MessageNotifier;
 import com.farpost.intellij.remotecall.notifier.SocketMessageNotifier;
+import com.farpost.intellij.remotecall.settings.RemoteCallSettings;
 import com.farpost.intellij.remotecall.utils.FileNavigatorImpl;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.util.SystemProperties;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -17,17 +17,22 @@ import java.net.ServerSocket;
 
 public class RemoteCallComponent implements ApplicationComponent {
   private static final Logger log = Logger.getInstance(RemoteCallComponent.class);
+  private final RemoteCallSettings mySettings;
 
   private ServerSocket serverSocket;
   private Thread listenerThread;
 
+  public RemoteCallComponent(RemoteCallSettings settings) {
+    mySettings = settings;
+  }
+
   public void initComponent() {
-    final int port = SystemProperties.getIntProperty("idea.remote.call.port", 8091);
-    final boolean remoteControl = SystemProperties.getBooleanProperty("idea.remote.call.remoteControl", false);
+    final int port = mySettings.getPortNumber();
+    final boolean allowRequestsFromLocalhostOnly = mySettings.isAllowRequestsFromLocalhostOnly();
 
     try {
       serverSocket = new ServerSocket();
-      serverSocket.bind(new InetSocketAddress(remoteControl ? "0.0.0.0" : "localhost", port));
+      serverSocket.bind(new InetSocketAddress(!allowRequestsFromLocalhostOnly ? "localhost" : "0.0.0.0", port));
       log.info("Listening " + port);
     }
     catch (IOException e) {
