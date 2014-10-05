@@ -10,7 +10,7 @@
 
     By default sending requests is permitted from localhost only. You can change it in Settings | Remote Call.
 
-    Number of listening port also can be configured in Settings.
+    Listening port also can be configured in Settings.
   </description>
   <version>1.7</version>
   <vendor email="zolotov@farpost.com" url="http://farpost.com">FarPost</vendor>

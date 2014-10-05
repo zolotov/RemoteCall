@@ -11,7 +11,7 @@ In this case plugin will try to find the most appropriate file basing on the spe
 
 By default sending requests is permitted from localhost only. You can change it in Settings | Remote Call.
     
-Number of listening port also can be configured in Settings.
+Listening port also can be configured in Settings.
 
 Install
 ---------
