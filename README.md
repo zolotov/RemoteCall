@@ -50,13 +50,3 @@ function highlight(stackTraceDiv) {
 - printing hyperlinks to source code in test reports or in browser-test-runners like Jasmine test runner.
 
 Also, you can open files in IDE from your local applications using sockets, telnet, curl etc. Or you can simple open url http://localhost:8091?message=FileName.java:80 in browser ;-)
-
-Build
----------
-To build the plugin use IntelliJ IDEA.
-
-You can use gradle for compile and testing. In this case you should create gradle.properties file from example and set path_to_idea property.
-
-    $ echo "path_to_idea=/Applications/IntelliJ IDEA 10.app/" > gradle.properties
-    $ gradle test
-

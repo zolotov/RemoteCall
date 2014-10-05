@@ -12,7 +12,7 @@
 
     Port number could be changed via IDEA property 'idea.remote.call.port' (see http://www.jetbrains.com/idea/webhelp/file-idea-properties.html).
   </description>
-  <version>1.6</version>
+  <version>1.7</version>
   <vendor email="zolotov@farpost.com" url="http://farpost.com">FarPost</vendor>
   <idea-version since-build="129.1"/>
 
