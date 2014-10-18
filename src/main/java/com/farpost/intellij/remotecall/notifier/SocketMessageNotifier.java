@@ -63,7 +63,7 @@ public class SocketMessageNotifier implements MessageNotifier {
           while ((inputLine = in.readLine()) != null && !inputLine.equals(CRLF) && !inputLine.equals(NL) && !inputLine.isEmpty()) {
             requestString += inputLine;
           }
-          clientSocket.getOutputStream().write(("HTTP/1.1 200 OK" + CRLF + CRLF).getBytes(Charsets.UTF_8.name()));
+          clientSocket.getOutputStream().write(("HTTP/1.1 204 No Content" + CRLF + CRLF).getBytes(Charsets.UTF_8.name()));
           clientSocket.close();
 
           StringTokenizer tokenizer = new StringTokenizer(requestString);

@@ -12,7 +12,7 @@
 
     Listening port also can be configured in Settings.
   </description>
-  <version>1.7</version>
+  <version>1.8</version>
   <vendor email="zolotov@farpost.com" url="http://farpost.com">FarPost</vendor>
   <idea-version since-build="129.1"/>
 
