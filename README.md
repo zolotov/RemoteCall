@@ -3,6 +3,12 @@ RemoteCall IntelliJ Plugin
 
 IntelliJ IDEA plugin for remote call some procedures
 
+Not Supported Anymore
+=====================
+
+This plugin is not supported anymore. For now the recommended way to open files by HTTP requests in using built-in [IntelliJ Rest API](http://develar.org/idea-rest-api/#api-Platform-file).
+
+
 Supported procedures
 --------------------------------
 
